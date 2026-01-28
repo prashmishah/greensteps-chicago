@@ -1,0 +1,98 @@
+# Java / JVM
+*.class
+*.jar
+*.war
+*.ear
+*.jpi
+*.hpi
+*.sar
+
+# Build & output directories (Maven + Gradle + others)
+target/
+build/
+out/
+dist/
+bin/
+classes/
+
+# Gradle
+.gradle/
+gradle/
+gradle.properties  # ← only ignore if it contains secrets!
+/gradlew
+/gradlew.bat
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+pom.xml.versionsBackup
+release.properties
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# NetBeans
+nb-configuration.xml
+nbactions.xml
+nbproject/private/
+
+# VS Code
+.vscode/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.egg
+*.deb
+*.rpm
+
+# Logs & temp files
+*.log
+*.logs
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
+Thumbs.db
+
+# Dependency directories (if you have frontend parts)
+node_modules/
+bower_components/
+
+# Test reports & coverage
+TEST*.xml
+jacoco.exec
+coverage/
+ Surefire-*
+failsafe-*
+
+# Misc local files
+*.orig
+*.rej
+*.backup
+local.properties
+/.env
+/.env.*
+/.idea/httpRequests/
+
+# -------------------------------
+# Optional - add these only if needed
+# -------------------------------
+# /libs/               # if you keep local JARs here (usually not recommended)
+# /lib/                # same as above
+# *.keystore           # if you have local signing keys
+# *.jks
