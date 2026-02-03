@@ -10,7 +10,7 @@ backend development.
 
 Maher - Hii-I'm a Master's student in Computer Science at DePaul University, currently in my final year and graduating in March 2026. My academic and project experience focuses on software engineering, distributed systems, and full-stack development, with hands-on work in Java, C++, .NET, React, and cloud-based architectures.
 
-Prashmy - Hello! I’m in the final year of my Master’s degree in Computer Science. My academic journey has helped me build a strong foundation in software engineering and full-stack development, with hands-on experience in Agile and Scrum methodologies, software testing, and database design. Through coursework and projects, I’ve worked with technologies such as Java, Spring Boot, React, and relational databases, and I enjoy building structured, real-world applications that emphasize clean design and scalability
+Prashmy - Hello! I’m in the final year of my Master’s degree in Computer Science. My academic journey has helped me build a strong foundation in software engineering and full-stack development, and database design. In this project, i am responsible for overall coordination and core backend development, including the carbon footprint calculation, recommendation logic, and backend–frontend integration.
 
 # Definition of Done (Sprint 0)
 ---
