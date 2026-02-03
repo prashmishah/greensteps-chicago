@@ -12,6 +12,8 @@ Maher - Hii-I'm a Master's student in Computer Science at DePaul University, cur
 
 Prashmy - Hello! I’m in the final year of my Master’s degree in Computer Science. My academic journey has helped me build a strong foundation in software engineering and full-stack development, and database design. In this project, i am responsible for overall coordination and core backend development, including the carbon footprint calculation, recommendation logic, and backend–frontend integration.
 
+Srinivas - Hello! I am currently in my final quarter of the Master’s program in Computer Science at DePaul University. I have a strong foundation in Java, Angular, and MySQL, with a primary focus on Java Full Stack development.I am interested in applying my technical skills to real-world software development projects and continuing to grow as a full stack software developer.
+
 # Definition of Done (Sprint 0)
 ---
 ## Feature Scope
