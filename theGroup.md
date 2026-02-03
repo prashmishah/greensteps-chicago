@@ -14,6 +14,8 @@ Prashmy - Hello! I’m in the final year of my Master’s degree in Computer Sci
 
 Srinivas - Hello! I am currently in my final quarter of the Master’s program in Computer Science at DePaul University. I have a strong foundation in Java, Angular, and MySQL, with a primary focus on Java Full Stack development.I am interested in applying my technical skills to real-world software development projects and continuing to grow as a full stack software developer.
 
+Rakshitha - Hello! I’m a Master’s student in Computer Science at DePaul University, currently in my final year. I have experience in software development and backend programming through my coursework and projects,and I enjoy working on real-world software applications.
+
 # Definition of Done (Sprint 0)
 ---
 ## Feature Scope
