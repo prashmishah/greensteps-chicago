@@ -26,7 +26,7 @@ export default function History() {
   const total = entries.length;
 
   const onDelete = (id) => {
-    const updated = entries.filter((e) => e.id !== id);
+    const updated = entries.filter((e) => e.id !== id && e.clientId !== id);
     setEntries(updated);
     saveEntries(updated);
   };
@@ -35,7 +35,7 @@ export default function History() {
     () =>
       entries.map((e) => ({
         ...e,
-        when: new Date(e.createdAt).toLocaleString(),
+        when: new Date(e.startTime || Date.now()).toLocaleString(),
       })),
     [entries]
   );
@@ -74,7 +74,7 @@ export default function History() {
       ) : (
         <div className="list">
           {formatted.map((e) => (
-            <div key={e.id} className="list-item">
+            <div key={e.id ?? e.clientId} className="list-item">
               <div className="li-left">
                 <div className="li-icon">{e.icon || "🍃"}</div>
                 <div>
@@ -84,11 +84,11 @@ export default function History() {
               </div>
 
               <div className="li-right">
-                <div className="co2-pill">{Number(e.co2Kg || 0).toFixed(2)} kg CO₂</div>
-                <button className="btn btn-secondary" onClick={() => navigate(`/activity/${e.type}`)}>
+                <div className="co2-pill">{Number(e.carbonKg || 0).toFixed(2)} kg CO₂</div>
+                <button className="btn btn-secondary" onClick={() => navigate(`/activity/${e.activityType}`)}>
                   Log Again
                 </button>
-                <button className="btn btn-danger" onClick={() => onDelete(e.id)}>
+                <button className="btn btn-danger" onClick={() => onDelete(e.id ?? e.clientId)}>
                   Delete
                 </button>
               </div>

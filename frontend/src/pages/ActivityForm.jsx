@@ -12,6 +12,7 @@ const ACTIVITY_META = {
 };
 
 const STORAGE_KEY = "greensteps_entries";
+const MILES_TO_KM = 1.60934;
 
 function loadEntries() {
   try {
@@ -29,6 +30,22 @@ function nowLocalDateTimeValue() {
   const d = new Date();
   const pad = (n) => String(n).padStart(2, "0");
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function milesToKm(distanceMiles) {
+  const miles = Number(distanceMiles);
+  if (!Number.isFinite(miles) || miles <= 0) {
+    return null;
+  }
+  return +(miles * MILES_TO_KM).toFixed(2);
+}
+
+function addMinutes(isoString, minutes) {
+  const base = new Date(isoString);
+  if (Number.isFinite(minutes) && minutes > 0) {
+    base.setMinutes(base.getMinutes() + minutes);
+  }
+  return base.toISOString();
 }
 
 // Super simple estimate just to have something working
@@ -104,14 +121,25 @@ export default function ActivityForm() {
   const onSubmit = (e) => {
     e.preventDefault();
 
+    const startTime = new Date(form.datetime).toISOString();
+    const durationMinutes = Number(form.duration || 0);
+    const endTime = addMinutes(startTime, durationMinutes);
+    const distanceKm = milesToKm(form.distance);
+    const userId = 1; // TODO: replace with authenticated user id once auth is wired
+
     const entry = {
-      id: crypto.randomUUID(),
-      type,
+      id: null,
+      clientId: crypto.randomUUID(),
+      userId,
+      activityType: type,
+      description: form.notes,
+      startTime,
+      endTime,
+      distanceKm,
+      mode: form.mode,
+      carbonKg: co2,
       title: meta.title,
       icon: meta.icon,
-      createdAt: new Date(form.datetime).toISOString(),
-      data: form,
-      co2Kg: co2,
     };
 
     const entries = loadEntries();
