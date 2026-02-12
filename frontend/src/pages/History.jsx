@@ -1,34 +1,49 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getActiveUser } from "../utils/auth.js";
 
-const STORAGE_KEY = "greensteps_entries";
-
-function loadEntries() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
-
-function saveEntries(entries) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
+const ACTIVITY_META = {
+  commute_university: { title: "Commuting to University", icon: "🎓" },
+  commute_work: { title: "Commuting to Work", icon: "💼" },
+  dining: { title: "Dining at Restaurant", icon: "🍽️" },
+  grocery: { title: "Grocery Shopping", icon: "🛒" },
+  gym: { title: "Gym Visit", icon: "💪" },
+  shopping: { title: "Shopping", icon: "🛍️" },
+  leisure: { title: "Leisure Activity", icon: "🎨" },
+};
 
 export default function History() {
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    setEntries(loadEntries());
+    const fetchEntries = async () => {
+      try {
+        const user = getActiveUser();
+        if (!user?.id) {
+          setEntries([]);
+          return;
+        }
+        const response = await fetch(`/api/activities?userId=${user.id}`);
+        if (!response.ok) {
+          throw new Error("Failed to load activities");
+        }
+        const data = await response.json();
+        setEntries(data);
+      } catch (error) {
+        console.error(error);
+        setEntries([]);
+      }
+    };
+
+    fetchEntries();
   }, []);
 
   const total = entries.length;
 
   const onDelete = (id) => {
-    const updated = entries.filter((e) => e.id !== id && e.clientId !== id);
+    const updated = entries.filter((e) => e.id !== id);
     setEntries(updated);
-    saveEntries(updated);
   };
 
   const formatted = useMemo(
@@ -36,6 +51,8 @@ export default function History() {
       entries.map((e) => ({
         ...e,
         when: new Date(e.startTime || Date.now()).toLocaleString(),
+        title: ACTIVITY_META[e.activityType]?.title || e.activityType,
+        icon: ACTIVITY_META[e.activityType]?.icon || "🍃",
       })),
     [entries]
   );
@@ -74,7 +91,7 @@ export default function History() {
       ) : (
         <div className="list">
           {formatted.map((e) => (
-            <div key={e.id ?? e.clientId} className="list-item">
+            <div key={e.id} className="list-item">
               <div className="li-left">
                 <div className="li-icon">{e.icon || "🍃"}</div>
                 <div>
@@ -88,7 +105,7 @@ export default function History() {
                 <button className="btn btn-secondary" onClick={() => navigate(`/activity/${e.activityType}`)}>
                   Log Again
                 </button>
-                <button className="btn btn-danger" onClick={() => onDelete(e.id ?? e.clientId)}>
+                <button className="btn btn-danger" onClick={() => onDelete(e.id)}>
                   Delete
                 </button>
               </div>

@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getActiveUser } from "../utils/auth.js";
 
 const ACTIVITY_META = {
   commute_university: { title: "Commuting to University", icon: "🎓" },
@@ -11,20 +12,7 @@ const ACTIVITY_META = {
   leisure: { title: "Leisure Activity", icon: "🎨" },
 };
 
-const STORAGE_KEY = "greensteps_entries";
 const MILES_TO_KM = 1.60934;
-
-function loadEntries() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
-
-function saveEntries(entries) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-}
 
 function nowLocalDateTimeValue() {
   const d = new Date();
@@ -118,18 +106,23 @@ export default function ActivityForm() {
 
   const update = (k) => (e) => setForm((p) => ({ ...p, [k]: e.target.value }));
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const startTime = new Date(form.datetime).toISOString();
     const durationMinutes = Number(form.duration || 0);
     const endTime = addMinutes(startTime, durationMinutes);
     const distanceKm = milesToKm(form.distance);
-    const userId = 1; // TODO: replace with authenticated user id once auth is wired
+    const user = getActiveUser();
+    const userId = user?.id;
+    if (!userId) {
+      alert("Please register or log in first.");
+      navigate("/login");
+      return;
+    }
 
     const entry = {
       id: null,
-      clientId: crypto.randomUUID(),
       userId,
       activityType: type,
       description: form.notes,
@@ -138,14 +131,24 @@ export default function ActivityForm() {
       distanceKm,
       mode: form.mode,
       carbonKg: co2,
-      title: meta.title,
-      icon: meta.icon,
     };
 
-    const entries = loadEntries();
-    saveEntries([entry, ...entries]);
+    try {
+      const response = await fetch("/api/activities", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(entry),
+      });
 
-    navigate("/history");
+      if (!response.ok) {
+        throw new Error("Failed to save activity");
+      }
+
+      navigate("/history");
+    } catch (error) {
+      console.error(error);
+      alert("Unable to save activity right now. Please try again.");
+    }
   };
 
   if (!ACTIVITY_META[type]) {

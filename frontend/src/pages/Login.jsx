@@ -1,15 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { setActiveUser } from "../utils/auth.js";
 
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // Placeholder auth (replace with backend later)
-    navigate("/");
+    try {
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: email, password }),
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.json().catch(() => ({}));
+        const message = errorBody?.message || "Login failed";
+        throw new Error(message);
+      }
+
+      const user = await response.json();
+      setActiveUser(user);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "Unable to login right now. Please check your credentials.");
+    }
   };
 
   return (
