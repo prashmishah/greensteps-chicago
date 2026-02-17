@@ -17,11 +17,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven'
+          cache: 'gradle'
 
       - name: Build and Test Backend
         working-directory: ./backend
-        run: mvn clean verify
+        run: |
+          chmod +x ./gradlew
+          ./gradlew test
 
   frontend-ci:
     name: Frontend - React + Vite
@@ -44,9 +46,10 @@ jobs:
         working-directory: ./frontend
         run: npm run lint
 
-      - name: Run frontend tests
-        working-directory: ./frontend
-        run: npm test -- --run
+      # FIXME: no tests written yet
+      # - name: Run frontend tests
+      #   working-directory: ./frontend
+      #   run: npm test -- --run
 
       - name: Build frontend
         working-directory: ./frontend
