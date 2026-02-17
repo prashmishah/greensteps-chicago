@@ -8,7 +8,11 @@ Green Steps is a carbon-emissions monitoring platform for daily activities.
 1. Backend (Spring Boot + H2 in-memory):
    ```bash
    cd backend
-   ./mvnw spring-boot:run
+   ./gradlew bootRun
+   ```
+   If `./gradlew` is missing, install Gradle or run:
+   ```bash
+   gradle wrapper
    ```
 2. Frontend (Vite + React):
    ```bash
@@ -20,7 +24,7 @@ Green Steps is a carbon-emissions monitoring platform for daily activities.
 **Run Both at Once**
 From the repo root:
 ```bash
-bash scripts/dev.sh
+bash scripts/build.sh
 ```
 
 **H2 Console**
@@ -32,3 +36,4 @@ When the backend is running:
 
 **Notes**
 - JPA automatically creates the `users` and `activities` tables on startup.
+- Run backend tests with `./gradlew test`.
