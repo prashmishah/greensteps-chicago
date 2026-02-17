@@ -29,7 +29,17 @@ cleanup() {
 
 trap cleanup EXIT INT TERM
 
-(cd "${ROOT_DIR}/backend" && ./mvnw spring-boot:run) &
+(cd "${ROOT_DIR}/backend" && {
+  if [[ -x "./gradlew" ]]; then
+    ./gradlew bootRun
+  else
+    if ! command -v gradle >/dev/null 2>&1; then
+      echo "Gradle is not installed and ./gradlew is missing. Install Gradle or run 'gradle wrapper' in backend." >&2
+      exit 1
+    fi
+    gradle bootRun
+  fi
+}) &
 backend_pid=$!
 backend_pgid="$(pgid_for_pid "${backend_pid}")"
 

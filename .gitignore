@@ -23,6 +23,12 @@ gradle.properties  # ← only ignore if it contains secrets!
 /gradlew.bat
 gradle-wrapper.jar
 gradle-wrapper.properties
+!backend/gradlew
+!backend/gradlew.bat
+!backend/gradle/
+!backend/gradle/wrapper/
+!backend/gradle/wrapper/gradle-wrapper.jar
+!backend/gradle/wrapper/gradle-wrapper.properties
 
 # Maven
 .mvn/
@@ -96,3 +102,6 @@ local.properties
 # /lib/                # same as above
 # *.keystore           # if you have local signing keys
 # *.jks
+
+# Allow Gradle wrapper JAR to be committed
+!backend/gradle/wrapper/gradle-wrapper.jar
