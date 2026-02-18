@@ -1,7 +1,7 @@
-#Green Steps Chicago
+**Green Steps Chicago**
 
 
-Last Revised: February 17, 2026
+**Last Revised**: February 17, 2026
 
 Brief Description of Topic
 
