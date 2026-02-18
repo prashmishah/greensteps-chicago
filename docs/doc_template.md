@@ -90,10 +90,10 @@ Users Table
 
 **Assumptions and Limitations**
 
-The emission factor used is fixed and simplified.
+- The emission factor used is fixed and simplified.
 
-The system provides estimated values, not exact real-world emissions.
+- The system provides estimated values, not exact real-world emissions.
 
-The database is in-memory, so data is lost when the backend stops.
+- The database is in-memory, so data is lost when the backend stops.
 
-Regional emission differences are not currently implemented.
+- Regional emission differences are not currently implemented.
