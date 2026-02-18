@@ -52,9 +52,9 @@ DTOs (Data Transfer Objects) are used to transfer data between the frontend and 
 Entities represent database tables.
 The main entities are:
 
-User
+- User
 
-Activity
+- Activity
 
 These are mapped using JPA annotations.
 
@@ -62,31 +62,31 @@ These are mapped using JPA annotations.
 
 Users Table
 
-id
+- id
 
-username
+- username
 
-password_hash
+- password_hash
 
-created_at
+- created_at
 
-last_accessed_at
+- last_accessed_at
 
 **Activities Table**
 
-id
+- id
 
-activity_type
+- activity_type
 
-distance_km
+- distance_km
 
-carbon_kg
+- carbon_kg
 
-start_time
+- start_time
 
-end_time
+- end_time
 
-user_id (foreign key)
+- user_id (foreign key)
 
 **Assumptions and Limitations**
 
