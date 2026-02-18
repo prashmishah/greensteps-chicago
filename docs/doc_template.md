@@ -11,17 +11,17 @@ This helps users understand the environmental impact of their daily actions.
 
 **Main Features**
 
-Users can log an activity (for example, travel distance).
+- Users can log an activity (for example, travel distance).
 
-The system calculates carbon emissions automatically.
+- The system calculates carbon emissions automatically.
 
-Emission data is stored in the database.
+- Emission data is stored in the database.
 
-Users can view their past activities and emissions.
+- Users can view their past activities and emissions.
 
-The system connects frontend and backend through REST APIs.
+- The system connects frontend and backend through REST APIs.
 
-Data is stored using JPA with an H2 in-memory database.
+- Data is stored using JPA with an H2 in-memory database.
 
 **How It Works**
 
