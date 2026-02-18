@@ -58,6 +58,7 @@ Activity
 These are mapped using JPA annotations.
 
 **Database Tables**
+
 Users Table
 
 id
