@@ -1,6 +1,5 @@
 # Green Steps Chicago
 
-##
 Authors: Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
 
 Last Revised: February 17, 2026
