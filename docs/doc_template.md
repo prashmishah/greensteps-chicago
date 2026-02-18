@@ -1,8 +1,9 @@
 # Green Steps Chicago
 
-# Authors: Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
+##
+Authors: Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
 
-# Last Revised: February 17, 2026
+Last Revised: February 17, 2026
 
 # What is Green Steps Chicago?
 
@@ -31,7 +32,7 @@ After the calculation is completed, the result is stored in the Activities table
 
 # Package Structure:
 
-## controller**
+## controller
 
 The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
 
