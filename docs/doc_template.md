@@ -34,6 +34,7 @@ Carbon Emissions (kg CO₂) = Distance (km) × Emission Factor
 After the calculation is completed, the result is stored in the Activities table. The backend then sends the result back to the frontend, where it is displayed to the user.
 
 **Package Structure:**
+
 **controller**
 
 The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
