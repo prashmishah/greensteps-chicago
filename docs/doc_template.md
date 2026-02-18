@@ -1,8 +1,8 @@
 # Green Steps Chicago
 
-Authors: Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
+**Authors:** Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
 
-Last Revised: February 17, 2026
+**Last Revised:** February 17, 2026
 
 # What is Green Steps Chicago?
 
@@ -19,7 +19,7 @@ This helps users understand the environmental impact of their daily actions.
 - The system connects frontend and backend through REST APIs.
 - Data is stored using JPA with an H2 in-memory database.
 
-# How It Works
+# How It Works?
 
 When a user enters activity information in the frontend, the data is sent to the backend using a POST request.
 
@@ -29,21 +29,21 @@ Carbon Emissions (kg CO₂) = Distance (km) × Emission Factor
 
 After the calculation is completed, the result is stored in the Activities table. The backend then sends the result back to the frontend, where it is displayed to the user.
 
-# Package Structure:
+# Package Structure
 
-## controller
+## controller:
 
 The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
 
-## service
+## service:
 
 The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
 
-## dto
+## dto:
 
 DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
 
-## entity
+## entity:
 
 Entities represent database tables.
 The main entities are:
