@@ -3,13 +3,13 @@
 
 **Last Revised**: February 17, 2026
 
-Brief Description of Topic
+**What is Green Steps Chicago?**
 
 This document explains the carbon calculation feature in the Green Steps project. The purpose of this feature is to calculate carbon emissions based on user activities, such as travel. When a user logs an activity, the system calculates how much carbon dioxide (CO₂) was produced and stores that value in the database.
 
 This helps users understand the environmental impact of their daily actions.
 
-Main Features
+**Main Features**
 
 Users can log an activity (for example, travel distance).
 
@@ -23,7 +23,7 @@ The system connects frontend and backend through REST APIs.
 
 Data is stored using JPA with an H2 in-memory database.
 
-How It Works
+**How It Works**
 
 When a user enters activity information in the frontend, the data is sent to the backend using a POST request.
 
@@ -33,20 +33,20 @@ Carbon Emissions (kg CO₂) = Distance (km) × Emission Factor
 
 After the calculation is completed, the result is stored in the Activities table. The backend then sends the result back to the frontend, where it is displayed to the user.
 
-Description of Package Structure
-controller
+**Package Structure:**
+**controller**
 
 The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
 
-service
+**service**
 
 The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
 
-dto
+**dto**
 
 DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
 
-entity
+**entity**
 
 Entities represent database tables.
 The main entities are:
@@ -57,7 +57,7 @@ Activity
 
 These are mapped using JPA annotations.
 
-Database Tables
+**Database Tables**
 Users Table
 
 id
@@ -70,7 +70,7 @@ created_at
 
 last_accessed_at
 
-Activities Table
+**Activities Table**
 
 id
 
@@ -86,7 +86,7 @@ end_time
 
 user_id (foreign key)
 
-Assumptions and Limitations
+**Assumptions and Limitations**
 
 The emission factor used is fixed and simplified.
 
