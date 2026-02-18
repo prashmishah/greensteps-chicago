@@ -1,9 +1,10 @@
 # Green Steps Chicago
 
+# Authors: Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
 
-**Last Revised**: February 17, 2026
+# Last Revised: February 17, 2026
 
-**What is Green Steps Chicago?**
+# What is Green Steps Chicago?
 
 This document explains the carbon calculation feature in the Green Steps project. The purpose of this feature is to calculate carbon emissions based on user activities, such as travel. When a user logs an activity, the system calculates how much carbon dioxide (CO₂) was produced and stores that value in the database.
 
@@ -58,19 +59,29 @@ These are mapped using JPA annotations.
 ##Users Table
 
 id
+
 username
+
 password_hash
+
 created_at
+
 last_accessed_at
 
 ## Activities Table
 
 id
+
 activity_type
+
 distance_km
+
 carbon_kg
+
 start_time
+
 end_time
+
 user_id (foreign key)
 
 # Assumptions and Limitations
