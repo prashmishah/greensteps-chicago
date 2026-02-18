@@ -55,7 +55,7 @@ These are mapped using JPA annotations.
 
 # Database Tables
 
-##Users Table
+### Users Table
 
 id
 
@@ -67,7 +67,7 @@ created_at
 
 last_accessed_at
 
-## Activities Table
+### Activities Table
 
 id
 
