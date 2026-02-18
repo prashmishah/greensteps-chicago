@@ -1,6 +1,6 @@
 # Green Steps Chicago
 
-**Authors:** Rakshitha manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
+**Authors:** Rakshitha Manthena, Prashmy Shah, Srinivas Bakkashetti, Nathan Ho, Maher Vahora
 
 **Last Revised:** February 17, 2026
 
@@ -31,26 +31,18 @@ After the calculation is completed, the result is stored in the Activities table
 
 # Package Structure
 
-## controller:
+- controller: The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
 
-The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
+- service: The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
 
-## service:
+- dto: DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
 
-The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
+- entity: Entities represent database tables.
+- The main entities are:
 
-## dto:
+-[ ] User
 
-DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
-
-## entity:
-
-Entities represent database tables.
-The main entities are:
-
-- User
-
-- Activity
+-[ ] Activity
 
 These are mapped using JPA annotations.
 
