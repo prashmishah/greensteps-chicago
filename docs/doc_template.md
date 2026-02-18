@@ -31,18 +31,25 @@ After the calculation is completed, the result is stored in the Activities table
 
 # Package Structure
 
-- controller: The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
+### controller
 
-- service: The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
+The controller handles HTTP requests from the frontend. It receives activity data and returns responses after processing.
 
-- dto: DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
+### service
 
-- entity: Entities represent database tables.
-- The main entities are:
+The service layer contains the main business logic. It calculates carbon emissions and prepares the data before saving it.
 
--[ ] User
+### dto
 
--[ ] Activity
+DTOs (Data Transfer Objects) are used to transfer data between the frontend and backend. They help organize request and response data without exposing internal database structure.
+
+### entity
+
+Entities represent database tables.
+
+Main entities:
+- User
+- Activity
 
 These are mapped using JPA annotations.
 
