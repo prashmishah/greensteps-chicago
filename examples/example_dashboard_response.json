@@ -90,7 +90,7 @@
       "carbonKg": 4.13,
       "startLocation": "Home",
       "endLocation": "Office",
-      "date": "2026-02-14T08:31:00Z"
+      "date": "2026-02-14"
     },
     {
       "activityId": "act_2040",
@@ -99,7 +99,7 @@
       "carbonKg": 0.99,
       "startLocation": "Office",
       "endLocation": "Gym",
-      "date": "2026-02-13T17:42:00Z"
+      "date": "2026-02-13"
     },
     {
       "activityId": "act_2039",
@@ -108,7 +108,7 @@
       "carbonKg": 5.96,
       "startLocation": "Gym",
       "endLocation": "Home",
-      "date": "2026-02-13T19:15:00Z"
+      "date": "2026-02-13"
     }
   ]
 }
