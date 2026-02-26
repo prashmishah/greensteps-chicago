@@ -1,10 +1,5 @@
 package com.greensteps.carboncalculation.service;
 
-import com.greensteps.activity.entity.Activity;
-import com.greensteps.activity.repository.ActivityRepository;
-import com.greensteps.carboncalculation.dto.CarbonDashboardResponse;
-import com.greensteps.user.entity.User;
-import com.greensteps.user.repository.UserRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -14,9 +9,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.greensteps.activity.entity.Activity;
+import com.greensteps.activity.repository.ActivityRepository;
+import com.greensteps.carboncalculation.dto.CarbonDashboardResponse;
+import com.greensteps.user.entity.User;
+import com.greensteps.user.repository.UserRepository;
 
 @Service
 public class CarbonCalculationService {
@@ -111,8 +113,34 @@ public class CarbonCalculationService {
    * Please reference ~/examples/example_dashboard_response.json
    *
    */
-  private List<CarbonDashboardResponse.DailyMetric> buildDailyMetrics(List<Activity> activities) throws Exception {
-    throw new Exception("not implemented yet");
+  private List<CarbonDashboardResponse.DailyMetric> buildDailyMetrics(List<Activity> activities) {
+    Map<LocalDate, List<Activity>> byDay = activities.stream()
+      .collect(Collectors.groupingBy(this::activityDate));
+      return byDay.entrySet().stream()
+      .sorted(Map.Entry.comparingByKey())
+      .map(entry -> {
+        LocalDate date = entry.getKey();
+        List<Activity> dayActivities = entry.getValue();
+
+        BigDecimal totalDistance = dayActivities.stream()
+            .map(this::distance)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalCarbon = dayActivities.stream()
+            .map(this::carbon)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        CarbonDashboardResponse.DailyMetric metric =
+            new CarbonDashboardResponse.DailyMetric();
+
+        metric.setDate(date);
+        metric.setActivities(dayActivities.size());
+        metric.setDistanceKm(round(totalDistance));
+        metric.setCarbonKg(round(totalCarbon));
+
+        return metric;
+      })
+      .collect(Collectors.toList());
   }
 
   /**
@@ -120,8 +148,29 @@ public class CarbonCalculationService {
    * Please reference ~/examples/example_dashboard_response.json
    *
    */
-  private List<CarbonDashboardResponse.RecentActivity> buildRecentActivities(List<Activity> activities) throws Exception {
-    throw new Exception("not implemented yet");
+  private List<CarbonDashboardResponse.RecentActivity> buildRecentActivities(List<Activity> activities) {
+    return activities.stream()
+    .sorted(Comparator.comparing(
+          Activity::getStartTime,
+          Comparator.nullsLast(Comparator.naturalOrder())
+      ).reversed())
+      .limit(RECENT_ACTIVITY_LIMIT)
+      .map(activity -> {
+        CarbonDashboardResponse.RecentActivity recent = new CarbonDashboardResponse.RecentActivity();
+
+        recent.setActivityId("act_" + activity.getId());
+        recent.setMode(mode(activity));
+        recent.setDistanceKm(round(distance(activity)));
+        recent.setCarbonKg(round(carbon(activity)));
+        recent.setDate(activityDate(activity));
+
+        // FIXME::Not available in Activity entity yet
+        recent.setStartLocation(null);
+        recent.setEndLocation(null);
+
+        return recent;
+      })
+      .collect(Collectors.toList());
   }
 
   /**
