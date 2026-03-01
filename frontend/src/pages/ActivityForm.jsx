@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getActiveUser } from "../utils/auth.js";
+import "./activity.css";
 
 const ACTIVITY_META = {
   commute_university: { title: "Commuting to University", icon: "🎓" },
@@ -162,11 +163,18 @@ export default function ActivityForm() {
   }
 
   return (
-    <div className="page">
+  <div className="page">
+    <div className="form-wrapper">
+
       <div className="form-header">
-        <button className="btn btn-secondary" onClick={() => navigate(-1)} type="button">
+        <button
+          className="btn btn-secondary"
+          onClick={() => navigate(-1)}
+          type="button"
+        >
           ← Back
         </button>
+
         <div className="form-title">
           <span className="form-icon">{meta.icon}</span>
           <h2>{meta.title}</h2>
@@ -286,5 +294,7 @@ export default function ActivityForm() {
         </div>
       </form>
     </div>
+  </div>
   );
 }
+

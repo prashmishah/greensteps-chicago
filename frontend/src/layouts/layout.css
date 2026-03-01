@@ -1,0 +1,66 @@
+/* ===== NAVBAR - MATCH DASHBOARD THEME ===== */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: #e9f5ec; /* same as dashboard background */
+  border-bottom: 1px solid #dbe5dd;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.brand-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1b4332;
+}
+
+.brand-subtitle {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.nav-link:hover {
+  background: #dcefe3; /* soft green hover */
+}
+
+.active-link {
+  background: #2d6a4f;
+  color: white;
+}
+
+.logout-btn {
+  background: #2d6a4f;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}

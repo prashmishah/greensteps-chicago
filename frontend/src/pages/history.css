@@ -1,0 +1,99 @@
+.history-page {
+  background: #e9f5ec;
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.history-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.history-header h2 {
+  margin: 0;
+  color: #1b4332;
+}
+
+.history-header .muted {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.history-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.empty {
+  background: white;
+  padding: 50px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.empty-title {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #1b4332;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.list-item {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+.li-left {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.li-icon {
+  font-size: 24px;
+}
+
+.li-title {
+  font-weight: 600;
+  color: #1b4332;
+}
+
+.li-sub {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.li-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.co2-pill {
+  background: #e6f4ea;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  color: #1b4332;
+}
