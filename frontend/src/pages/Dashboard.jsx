@@ -1,3 +1,4 @@
+import { getActiveUser } from "../utils/auth.js";
 import { useState, useEffect } from "react";
 import SummaryCard from "../components/dashboard/SummaryCard";
 import EmissionsLineChart from "../components/dashboard/EmissionsLineChart";
@@ -11,13 +12,37 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Temporary mock data
-    setTimeout(() => {
+  const fetchDashboard = async () => {
+    try {
+      const user = getActiveUser();
+      const userId = user?.id ?? 1;
+
+      const response = await fetch(`/api/carbon/dashboard?userId=${userId}`);
+      if (!response.ok) throw new Error("API failed");
+
+      const data = await response.json();
+      setSummary({
+        totalActivities: data.summary.totalActivities,
+        totalDistanceKm: data.summary.totalDistanceKm,
+        totalCarbonKg: data.summary.totalCarbonKg,
+        avgCarbonKg: data.summary.avgCarbonKg,
+        byTransport: data.byTransport,
+      });
+      setTimeseries(data.daily.map(d => ({
+        date: d.date,
+        co2Kg: d.carbonKg,
+      })));
+    } catch (err) {
+      console.warn("Falling back to mock data:", err.message);
       setSummary(mockSummary);
       setTimeseries(mockTimeseries);
+    } finally {
       setLoading(false);
-    }, 600);
-  }, []);
+    }
+  };
+
+  fetchDashboard();
+}, []);
 
   if (loading) return <div className="dashboard-loading">Loading Dashboard...</div>;
 
