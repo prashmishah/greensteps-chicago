@@ -31,6 +31,7 @@ export default function App() {
         </Route>
 
         {/* FALLBACK */} 
+        <Route path="/dashboard" element={<Navigate to="/" replace />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
