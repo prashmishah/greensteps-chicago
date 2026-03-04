@@ -1,13 +1,15 @@
 package com.greensteps;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
-@SpringBootTest
-class BackendApplicationTests {
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.SpringApplication;
+
+class BackendApplicationMainTest {
 
     @Test
-    void contextLoads() {
+    void main_doesNotThrow() {
+        assertThatCode(() -> SpringApplication.from(BackendApplication::main).with().run())
+                .doesNotThrowAnyException();
     }
-
 }

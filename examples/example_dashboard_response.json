@@ -1,0 +1,114 @@
+{
+  "userId": "user_004",
+  "name": "Sam Taylor",
+
+  "summary": {
+    "totalActivities": 41,
+    "totalDistanceKm": 312.9,
+    "totalCarbonKg": 112.4,
+    "avgCarbonKg": 2.74,
+    "avgDistanceKm": 7.63
+  },
+
+  "byTransport": [
+    {
+      "mode": "DRIVE",
+      "activities": 29,
+      "distanceKm": 248.6,
+      "carbonKg": 98.72
+    },
+    {
+      "mode": "CTA",
+      "activities": 4,
+      "distanceKm": 21.3,
+      "carbonKg": 3.41
+    },
+    {
+      "mode": "TRAIN",
+      "activities": 3,
+      "distanceKm": 26.4,
+      "carbonKg": 6.12
+    },
+    {
+      "mode": "BUS",
+      "activities": 2,
+      "distanceKm": 9.8,
+      "carbonKg": 2.15
+    },
+    {
+      "mode": "BIKE",
+      "activities": 2,
+      "distanceKm": 5.2,
+      "carbonKg": 0.0
+    },
+    {
+      "mode": "WALK",
+      "activities": 1,
+      "distanceKm": 1.6,
+      "carbonKg": 0.0
+    }
+  ],
+
+  "daily": [
+    {
+      "date": "2026-02-10",
+      "activities": 2,
+      "distanceKm": 18.4,
+      "carbonKg": 6.21
+    },
+    {
+      "date": "2026-02-11",
+      "activities": 3,
+      "distanceKm": 22.7,
+      "carbonKg": 7.54
+    },
+    {
+      "date": "2026-02-12",
+      "activities": 1,
+      "distanceKm": 9.3,
+      "carbonKg": 3.02
+    },
+    {
+      "date": "2026-02-13",
+      "activities": 4,
+      "distanceKm": 31.8,
+      "carbonKg": 10.88
+    },
+    {
+      "date": "2026-02-14",
+      "activities": 2,
+      "distanceKm": 14.6,
+      "carbonKg": 4.92
+    }
+  ],
+
+  "recentActivities": [
+    {
+      "activityId": "act_2041",
+      "mode": "DRIVE",
+      "distanceKm": 12.7,
+      "carbonKg": 4.13,
+      "startLocation": "Home",
+      "endLocation": "Office",
+      "date": "2026-02-14"
+    },
+    {
+      "activityId": "act_2040",
+      "mode": "CTA",
+      "distanceKm": 6.2,
+      "carbonKg": 0.99,
+      "startLocation": "Office",
+      "endLocation": "Gym",
+      "date": "2026-02-13"
+    },
+    {
+      "activityId": "act_2039",
+      "mode": "DRIVE",
+      "distanceKm": 18.3,
+      "carbonKg": 5.96,
+      "startLocation": "Gym",
+      "endLocation": "Home",
+      "date": "2026-02-13"
+    }
+  ]
+}

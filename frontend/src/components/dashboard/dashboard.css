@@ -1,0 +1,137 @@
+.dashboard-container {
+  padding: 40px 60px;
+  background: #e9f5ec; /* same light green */
+  min-height: 100vh;
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  color: #1b4332;
+}
+
+.dashboard-loading {
+  padding: 40px;
+  font-size: 18px;
+}
+
+/* SUMMARY */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 45px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  transition: 0.25s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+}
+
+.card-label {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 12px;
+}
+
+.card-number {
+  font-size: 30px;
+  font-weight: 600;
+  color: #2d6a4f;
+}
+
+/* CHARTS */
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.chart-title {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #1b4332;
+}
+
+/* TABLE */
+
+.table-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #2d6a4f;
+  color: white;
+}
+
+th, td {
+  padding: 14px;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #f1f3f5;
+}
+
+tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-container {
+    padding: 30px 25px;
+  }
+}
+
+.summary-card {
+  text-align: center;
+  transition: 0.25s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-6px);
+  background: #f8fbf9;
+}

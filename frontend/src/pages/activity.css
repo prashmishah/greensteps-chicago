@@ -1,0 +1,171 @@
+/* ===============================
+   PAGE BACKGROUND
+================================= */
+
+.page {
+  background: #e9f5ec; /* light green */
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===============================
+   CENTER WRAPPER
+================================= */
+
+.form-wrapper {
+  width: 100%;
+  max-width: 650px;
+  text-align: center;
+}
+
+/* ===============================
+   HEADER (BACK + TITLE)
+================================= */
+
+.form-header {
+  margin-bottom: 30px;
+}
+
+.form-header .btn-secondary {
+  margin-bottom: 18px;
+}
+
+.form-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-icon {
+  font-size: 34px;
+}
+
+.form-title h2 {
+  margin: 0;
+  font-size: 30px;
+  color: #1b4332;
+}
+
+/* ===============================
+   FORM CARD
+================================= */
+
+.form {
+  background: white;
+  padding: 45px;
+  border-radius: 18px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  text-align: left;
+}
+
+/* ===============================
+   FORM ROWS
+================================= */
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.form-row label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* ===============================
+   INPUTS
+================================= */
+
+.form input,
+.form select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: 0.2s ease;
+  background: #ffffff;
+}
+
+.form input:focus,
+.form select:focus {
+  outline: none;
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.15);
+}
+
+/* ===============================
+   CO2 BOX
+================================= */
+
+.co2-box {
+  background: #f1fdf5;
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.co2-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.co2-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2d6a4f;
+  margin-top: 6px;
+}
+
+/* ===============================
+   BUTTONS
+================================= */
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.btn {
+  padding: 11px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #2d6a4f;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: #dcefe3;
+  color: #1b4332;
+}
+
+.btn-secondary:hover {
+  background: #c7e4d3;
+}
+
+/* ===============================
+   MUTED TEXT
+================================= */
+
+.muted {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+  text-align: center;
+}

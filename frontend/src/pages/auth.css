@@ -1,0 +1,93 @@
+/* ===============================
+   PAGE BACKGROUND
+================================= */
+
+.auth-page {
+  background: #e9f5ec;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ===============================
+   CARD
+================================= */
+
+.auth-card {
+  background: white;
+  width: 100%;
+  max-width: 480px;
+  padding: 50px 40px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+/* ===============================
+   HEADINGS
+================================= */
+
+.auth-card h2 {
+  margin-bottom: 8px;
+  color: #1b4332;
+  font-size: 28px;
+}
+
+.auth-subtitle {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 35px;
+}
+
+/* ===============================
+   FORM
+================================= */
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.auth-card label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.auth-card input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 2px rgba(45, 106, 79, 0.15);
+}
+
+/* ===============================
+   BUTTON
+================================= */
+
+.auth-card button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #2d6a4f;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.auth-card button:hover {
+  opacity: 0.9;
+}

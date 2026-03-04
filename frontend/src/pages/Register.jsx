@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setActiveUser } from "../utils/auth.js";
+import "./auth.css";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+
+  const [name, setName] = useState("");   // fixed broken line
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,28 +35,39 @@ export default function Register() {
   };
 
   return (
-    <div className="auth-card">
-      <h2>Create account</h2>
-      <p className="muted">Start tracking your footprint.</p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <h2>Create account</h2>
+        <p className="auth-subtitle">Start tracking your footprint.</p>
 
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-row">
+        {/* removed className="form" */}
+        <form onSubmit={onSubmit}>
           <label>Name</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} required />
-        </div>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-        <div className="form-row">
           <label>Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
-        </div>
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            required
+          />
 
-        <div className="form-row">
           <label>Password</label>
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" required />
-        </div>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            required
+          />
 
-        <button className="btn" type="submit">Register</button>
-      </form>
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 }
