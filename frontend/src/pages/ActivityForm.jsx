@@ -145,7 +145,7 @@ export default function ActivityForm() {
         throw new Error("Failed to save activity");
       }
 
-      navigate("/history");
+      navigate("/");
     } catch (error) {
       console.error(error);
       alert("Unable to save activity right now. Please try again.");

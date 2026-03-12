@@ -44,11 +44,23 @@ export default function History() {
 
   const total = entries.length;
 
-  const onDelete = (id) => {
-    const updated = entries.filter((e) => e.id !== id);
-    setEntries(updated);
-  };
+  const onDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/activities/${id}`, {
+        method: "DELETE"
+      });
 
+      if (!response.ok) {
+        throw new Error("Delete failed");
+      }
+
+      setEntries(prev => prev.filter(e => e.id !== id));
+
+    } catch (error) {
+      console.error(error);
+      alert("Unable to delete activity right now.");
+    }
+  };
   const formatted = useMemo(
     () =>
       entries.map((e) => ({
@@ -77,9 +89,20 @@ export default function History() {
 
             <button
               className="btn btn-danger"
-              onClick={() => setEntries([])}
-              disabled={entries.length === 0}
-            >
+              onClick={async () => {
+                try {
+                      await Promise.all(
+                      entries.map((entry) =>
+                        fetch(`/api/activities/${entry.id}`, { method: "DELETE" })
+                      )
+                    );
+                    setEntries([]);
+                  } catch (error) {
+                    console.error(error);
+                    alert("Unable to clear activities right now.");
+                  }
+                }}
+             >
               Clear All
             </button>
           </div>
