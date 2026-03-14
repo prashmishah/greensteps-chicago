@@ -2,14 +2,30 @@ package com.greensteps.intentrecommendation.service;
 
 import com.greensteps.intentrecommendation.dto.IntentRecommendationResponse;
 import java.math.BigDecimal;
+
 import org.springframework.stereotype.Service;
 
 @Service
 public class IntentRecommendationService {
 
-  public IntentRecommendationResponse getRecommendation(String mode, BigDecimal distance) {
-    String currentMode = mode == null ? "" : mode.trim().toLowerCase();
-    double miles = distance == null ? 0 : distance.doubleValue();
+  public IntentRecommendationResponse getRecommendation(String mode, BigDecimal distanceKm) {
+    
+    if (distanceKm == null || distanceKm.signum() < 0) {
+      return new IntentRecommendationResponse(
+          "none",
+          "invalid distance!"
+      );
+    }
+
+    if (mode == null || mode.trim().isEmpty()) {
+      return new IntentRecommendationResponse(
+          "none",
+          "Enter a travel mode!"
+      );
+    }
+    
+    String currentMode = mode.trim().toLowerCase();
+    double km = distanceKm.doubleValue();
 
     /*RULES:
     Recommend alternate modes of transport for all activities having a transport mode
@@ -19,123 +35,123 @@ public class IntentRecommendationService {
 
     switch (currentMode) {
       case "car":
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is a great low-carbon option for short trips."
+              "Walking is the greenest for short trips!"
           );
         }
-        if (miles <= 5) {
+        if (km <= 5) {
           return new IntentRecommendationResponse(
               "bike",
-              "Biking is a cleaner option for this distance."
+              "Biking is a cleaner option for this trip!"
           );
         }
-        if (miles <= 15) {
+        if (km <= 15) {
           return new IntentRecommendationResponse(
               "bus",
-              "Taking the bus can reduce emissions compared to driving."
+              "Taking the bus can reduce emissions!"
           );
         }
         return new IntentRecommendationResponse(
             "train",
-            "Train travel can be a lower-emission option for longer trips."
+            "Train travel is best for longer trips!"
         );
 
       case "rideshare":
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is a great low-carbon option for short trips."
+              "Walking is the greenest for short trips!"
           );
         }
-        if (miles <= 5) {
+        if (km <= 5) {
           return new IntentRecommendationResponse(
               "bike",
-              "Biking is a cleaner option for this distance."
+              "Biking is a cleaner option for this trip!"
           );
         }
-        if (miles <= 15) {
+        if (km <= 15) {
           return new IntentRecommendationResponse(
               "bus",
-              "The bus usually emits less CO2 per passenger than rideshare."
+              "Taking the bus can reduce emissions!"
           );
         }
         return new IntentRecommendationResponse(
             "train",
-            "Train travel can be a better option for longer trips."
+            "Train travel is best for longer trips!"
         );
 
       case "bus":
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is the greenest option for very short trips."
+              "Walking is the greenest for short trips!"
           );
         }
-        if (miles <= 5) {
+        if (km <= 5) {
           return new IntentRecommendationResponse(
               "bike",
-              "Biking can remove transport emissions for shorter trips."
+              "Biking is a cleaner option for this trip!"
           );
         }
         return new IntentRecommendationResponse(
             "train",
-            "Train may be a lower-emission option for this distance."
+            "Train travel is best for longer trips!"
         );
 
       case "train":
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is the greenest option for very short trips."
+              "Walking is the greenest option for short trips!"
           );
         }
-        if (miles <= 5) {
+        if (km <= 5) {
           return new IntentRecommendationResponse(
               "bike",
-              "Biking is a low-carbon option for short trips."
+              "Biking is a cleaner option for this trip!"
           );
         }
         return new IntentRecommendationResponse(
-            "bus",
-            "Bus may be a practical low-emission option here."
+            "none",
+            "Nice choice!"
         );
 
       case "bike":
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is an even simpler zero-emission option for this short trip."
+              "Nice! Walking is another green option!"
           );
         }
         return new IntentRecommendationResponse(
             "bike",
-            "You are already using one of the greenest travel options."
+            "Nice! Get your exercise in!"
         );
 
       case "walk":
         return new IntentRecommendationResponse(
-            "walk",
-            "You are already using the greenest travel option."
+            "none",
+            "Nice! Get your warm-up!"
         );
 
       default:
-        if (miles <= 2) {
+        if (km <= 2) {
           return new IntentRecommendationResponse(
               "walk",
-              "Walking is a great low-carbon option for short trips."
+              "Nice! Get your warm-up!"
           );
         }
-        if (miles <= 5) {
+        if (km <= 5) {
           return new IntentRecommendationResponse(
               "bike",
-              "Biking is a cleaner option for this distance."
+              "Nice! Get your exercise in!"
           );
         }
         return new IntentRecommendationResponse(
             "bus",
-            "Public transport is often a lower-emission alternative."
+            "Public transport is greener!"
         );
     }
   }
