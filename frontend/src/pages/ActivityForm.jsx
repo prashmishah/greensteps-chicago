@@ -37,13 +37,13 @@ function addMinutes(isoString, minutes) {
   return base.toISOString();
 }
 
-// Super simple estimate just to have something working
+// Estimates Co2
 function estimateCO2(activityType, data) {
   const distance = Number(data.distance || 0);
   const mode = data.mode || "car";
 
   if (activityType.startsWith("commute")) {
-    // very rough multipliers
+    // emission factor per mile
     const perMile = {
       walk: 0,
       bike: 0,
@@ -283,7 +283,7 @@ export default function ActivityForm() {
         <div className="co2-box">
           <div className="co2-label">Estimated CO₂</div>
           <div className="co2-value">{co2} kg</div>
-          <div className="muted">You can refine this later — for now it’s a working baseline.</div>
+          <div className="muted">cO2 emission </div>
         </div>
 
         <div className="form-actions">
