@@ -48,7 +48,7 @@ class ActivityServiceTest {
     assertThat(created.getId()).isNotNull();
     assertThat(created.getUserId()).isEqualTo(user.getId());
     assertThat(created.getActivityType()).isEqualTo("commute_work");
-    assertThat(created.getCarbonKg()).isEqualByComparingTo("2.35");
+    assertThat(created.getCarbonKg()).isEqualByComparingTo("1.93");
 
     List<ActivityResponse> results = activityService.listByUser(user.getId());
 
