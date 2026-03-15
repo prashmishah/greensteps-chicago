@@ -67,6 +67,7 @@ public class CarbonDashboardResponse {
     private BigDecimal totalCarbonKg;
     private BigDecimal avgCarbonKg;
     private BigDecimal avgDistanceKm;
+    private BigDecimal carbonSavedKg;
 
     public long getTotalActivities() {
       return totalActivities;
@@ -106,6 +107,14 @@ public class CarbonDashboardResponse {
 
     public void setAvgDistanceKm(BigDecimal avgDistanceKm) {
       this.avgDistanceKm = avgDistanceKm;
+    }
+
+    public BigDecimal getCarbonSavedKg() {
+      return carbonSavedKg;
+    }
+
+    public void setCarbonSavedKg(BigDecimal carbonSavedKg) {
+      this.carbonSavedKg = carbonSavedKg;
     }
   }
 
