@@ -62,9 +62,9 @@ function Dashboard() {
           if (!transportMap[mode]) transportMap[mode] = 0;
           transportMap[mode] += a.carbonKg || 0;
         });
-        const byTransport = Object.keys(transportMap).map((mode) => ({
-          mode, co2Kg: transportMap[mode],
-        }));
+        const byTransport = Object.keys(transportMap)
+          .map((mode) => ({ mode, co2Kg: transportMap[mode] }))
+          .filter((item) => item.co2Kg > 0);
 
         const dateMap = {};
         activities.forEach((a) => {
