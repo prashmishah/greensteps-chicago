@@ -1,0 +1,45 @@
+/* ===============================
+   RECOMMENDATION CARD
+================================= */
+
+.recommendation-card {
+  margin-top: 28px;
+  background: #f1fdf5;
+  border: 1.5px solid #b7e4c7;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.recommendation-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.recommendation-body {
+  margin-bottom: 8px;
+}
+
+.recommendation-message {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1b4332;
+  margin: 0 0 8px 0;
+}
+
+.recommendation-mode {
+  font-size: 14px;
+  color: #374151;
+  margin: 0;
+}
+
+.recommendation-mode strong {
+  color: #2d6a4f;
+  text-transform: capitalize;
+}
