@@ -50,6 +50,13 @@ public class ActivityService {
         .collect(Collectors.toList());
   }
 
+  public void delete(Long id) {
+    if (!activityRepository.existsById(id)) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Activity not found");
+    }
+    activityRepository.deleteById(id);
+  }
+
   private ActivityResponse toResponse(Activity activity) {
     return new ActivityResponse(
         activity.getId(),
@@ -66,9 +73,8 @@ public class ActivityService {
   }
 
   private BigDecimal estimateCarbonKg(ActivityRequest request) {
-    // the following calculations per category follow the frontend calculation guidelines
-    String type = request.getActivityType() == null ? "" : request.getActivityType().trim().toLowerCase();
-    String mode = request.getMode() == null ? "" : request.getMode().trim().toLowerCase();
+    String type = request.getActivityType() == null ? "" : request.getActivityType().toLowerCase();
+    String mode = request.getMode() == null ? "" : request.getMode().toLowerCase();
     BigDecimal distanceKm = request.getDistanceKm() == null ? BigDecimal.ZERO : request.getDistanceKm();
 
     if (type.startsWith("commute")) {
@@ -76,15 +82,11 @@ public class ActivityService {
     }
 
     if (type.equals("dining")) {
-      // by default match frontend when recommendations are not provided
-      BigDecimal base = new BigDecimal("1.6"); // lunch
-      BigDecimal factor = new BigDecimal("0.85"); // vegetarian
-      return round(base.multiply(factor));
+      return round(new BigDecimal("1.6").multiply(new BigDecimal("0.85")));
     }
 
     if (type.equals("grocery") || type.equals("shopping")) {
-      BigDecimal base = new BigDecimal("2.0");
-      return round(base);
+      return round(new BigDecimal("2.0"));
     }
 
     if (type.equals("gym") || type.equals("leisure")) {

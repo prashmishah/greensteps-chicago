@@ -13,18 +13,28 @@ const ACTIVITY_META = {
   leisure: { title: "Leisure Activity", icon: "🎨" },
 };
 
-// CO2 per km by mode (kg)
+// ✅ MATCH BACKEND VALUES
 const CO2_PER_KM = {
-  car: 0.21, rideshare: 0.25, bus: 0.08,
-  train: 0.04, bike: 0, walk: 0,
+  car: 0.35,
+  rideshare: 0.40,
+  bus: 0.12,
+  train: 0.09,
+  bike: 0,
+  walk: 0,
 };
+
 const CAR_BASELINE = CO2_PER_KM.car;
 
+// ✅ FIXED CALCULATION (NO CONFUSION)
 function calcCO2Saved(activity) {
-  const mode = (activity.mode || "car").toLowerCase();
   const km = activity.distanceKm || 0;
-  const factor = CO2_PER_KM[mode] ?? 0.21;
-  const saved = (CAR_BASELINE - factor) * km;
+  const actual = activity.carbonKg || 0;
+
+  // if no emission → don't show saved
+  if (actual === 0) return null;
+
+  const saved = (CAR_BASELINE * km) - actual;
+
   return saved > 0 ? saved.toFixed(2) : null;
 }
 
@@ -32,38 +42,76 @@ export default function History() {
   const navigate = useNavigate();
   const [entries, setEntries] = useState([]);
 
+  // ✅ FETCH ACTIVITIES
   useEffect(() => {
     const fetchEntries = async () => {
       try {
         const user = getActiveUser();
-        if (!user?.id) { setEntries([]); return; }
+
+        if (!user?.id) {
+          setEntries([]);
+          return;
+        }
 
         const response = await fetch(`/api/activities?userId=${user.id}`);
-        if (!response.ok) throw new Error("Failed to load activities");
+
+        if (!response.ok) {
+          throw new Error("Failed to load activities");
+        }
 
         const data = await response.json();
         setEntries(data);
+
       } catch (error) {
         console.error(error);
         setEntries([]);
       }
     };
+
     fetchEntries();
   }, []);
 
   const total = entries.length;
 
+  // ✅ DELETE SINGLE ACTIVITY
   const onDelete = async (id) => {
     try {
-      const response = await fetch(`/api/activities/${id}`, { method: "DELETE" });
-      if (!response.ok) throw new Error("Delete failed");
-      setEntries(prev => prev.filter(e => e.id !== id));
+      const response = await fetch(`/api/activities/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        console.error(text);
+        throw new Error("Delete failed");
+      }
+
+      setEntries((prev) => prev.filter((e) => e.id !== id));
+
     } catch (error) {
       console.error(error);
       alert("Unable to delete activity right now.");
     }
   };
 
+  // ✅ CLEAR ALL
+  const clearAll = async () => {
+    try {
+      await Promise.all(
+        entries.map((entry) =>
+          fetch(`/api/activities/${entry.id}`, { method: "DELETE" })
+        )
+      );
+
+      setEntries([]);
+
+    } catch (error) {
+      console.error(error);
+      alert("Unable to clear activities right now.");
+    }
+  };
+
+  // ✅ FORMAT DATA
   const formatted = useMemo(
     () =>
       entries.map((e) => ({
@@ -80,6 +128,7 @@ export default function History() {
     <div className="history-page">
       <div className="history-container">
 
+        {/* HEADER */}
         <div className="history-header">
           <div>
             <h2>History</h2>
@@ -87,30 +136,24 @@ export default function History() {
           </div>
 
           <div className="history-actions">
-            <button className="btn btn-secondary" onClick={() => navigate("/add-activity")}>
+            <button
+              className="btn btn-secondary"
+              onClick={() => navigate("/add-activity")}
+            >
               + Add New
             </button>
+
             <button
               className="btn btn-danger"
-              onClick={async () => {
-                try {
-                  await Promise.all(
-                    entries.map((entry) =>
-                      fetch(`/api/activities/${entry.id}`, { method: "DELETE" })
-                    )
-                  );
-                  setEntries([]);
-                } catch (error) {
-                  console.error(error);
-                  alert("Unable to clear activities right now.");
-                }
-              }}
+              onClick={clearAll}
+              disabled={entries.length === 0}
             >
               Clear All
             </button>
           </div>
         </div>
 
+        {/* EMPTY STATE */}
         {formatted.length === 0 ? (
           <div className="empty">
             <div className="empty-title">No history yet</div>
@@ -121,13 +164,18 @@ export default function History() {
           </div>
         ) : (
           <div className="list">
+
             {formatted.map((e) => (
               <div key={e.id} className="list-item">
+
+                {/* LEFT */}
                 <div className="li-left">
                   <div className="li-icon">{e.icon}</div>
+
                   <div>
                     <div className="li-title">{e.title}</div>
                     <div className="li-sub">{e.when}</div>
+
                     {e.mode && (
                       <div className="li-sub">
                         {e.mode.charAt(0).toUpperCase() + e.mode.slice(1)}
@@ -137,13 +185,15 @@ export default function History() {
                   </div>
                 </div>
 
+                {/* RIGHT */}
                 <div className="li-right">
-                  {/* CO2 emitted */}
+
+                  {/* CO2 */}
                   <div className="co2-pill">
                     {Number(e.carbonKg || 0).toFixed(2)} kg CO₂
                   </div>
 
-                  {/* CO2 saved — only show if > 0 */}
+                  {/* SAVED */}
                   {e.co2Saved && (
                     <div className="co2-saved-pill">
                       🌱 {e.co2Saved} kg saved
@@ -163,12 +213,13 @@ export default function History() {
                   >
                     Delete
                   </button>
+
                 </div>
               </div>
             ))}
+
           </div>
         )}
-
       </div>
     </div>
   );
