@@ -31,6 +31,10 @@ trap cleanup EXIT INT TERM
 
 (cd "${ROOT_DIR}/backend" && {
   if [[ -x "./gradlew" ]]; then
+    echo "Running backend checks (tests + coverage)..."
+    ./gradlew check
+
+    echo "Starting backend..."
     ./gradlew bootRun
   else
     if ! command -v gradle >/dev/null 2>&1; then
