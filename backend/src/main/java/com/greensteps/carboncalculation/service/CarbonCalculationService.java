@@ -75,6 +75,7 @@ public class CarbonCalculationService {
     summary.setTotalActivities(totalActivities);
     summary.setTotalDistanceKm(round(totalDistance));
     summary.setTotalCarbonKg(round(totalCarbon));
+    summary.setCarbonSavedKg(BigDecimal.ZERO);
 
     if (totalActivities == 0) {
       summary.setAvgCarbonKg(BigDecimal.ZERO);

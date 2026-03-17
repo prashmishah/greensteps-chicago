@@ -10,6 +10,7 @@ import com.greensteps.carboncalculation.dto.CarbonDashboardResponse;
 import com.greensteps.user.entity.User;
 import com.greensteps.user.repository.UserRepository;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -37,10 +38,12 @@ class CarbonCalculationServiceTest {
   void buildDashboard() throws Exception {
     User user = createUser("carbon-dashboard-user-" + System.nanoTime());
 
+    BigDecimal distance = new BigDecimal("10.00");
+    String mode = "car";
     createActivity(user.getId(),
             OffsetDateTime.of(2026, 2, 25, 9, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("10.00"),
-            "car",
+            distance,
+            mode,
             new BigDecimal("2.00"));
 
     CarbonDashboardResponse res = carbonCalculationService.buildDashboard(user.getId());
@@ -55,8 +58,8 @@ class CarbonCalculationServiceTest {
     assertThat(res.getRecentActivities()).isNotNull();
 
     assertThat(res.getSummary().getTotalActivities()).isEqualTo(1);
-    assertThat(res.getSummary().getTotalDistanceKm()).isEqualByComparingTo(new BigDecimal("10.00"));
-    assertThat(res.getSummary().getTotalCarbonKg()).isEqualByComparingTo(new BigDecimal("2.00"));
+    assertThat(res.getSummary().getTotalDistanceKm()).isEqualByComparingTo(distance);
+    assertThat(res.getSummary().getTotalCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", distance, mode));
   }
 
   @Test
@@ -95,22 +98,25 @@ class CarbonCalculationServiceTest {
   void buildDashboard_groupsByTransportMode() throws Exception {
     User user = createUser("carbon-transport-user-" + System.nanoTime());
 
+    BigDecimal carDistance1 = new BigDecimal("5.00");
     createActivity(user.getId(),
             OffsetDateTime.of(2026, 2, 25, 9, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("5.00"),
+            carDistance1,
             "car",
             new BigDecimal("1.50"));
 
+    BigDecimal carDistance2 = new BigDecimal("7.00");
     createActivity(user.getId(),
             OffsetDateTime.of(2026, 2, 26, 9, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("7.00"),
+            carDistance2,
             "car",
             new BigDecimal("2.00"));
 
 
+    BigDecimal bikeDistance = new BigDecimal("3.00");
     createActivity(user.getId(),
             OffsetDateTime.of(2026, 2, 27, 9, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("3.00"),
+            bikeDistance,
             "bike",
             new BigDecimal("0.20"));
 
@@ -125,12 +131,16 @@ class CarbonCalculationServiceTest {
     assertThat(m1.getMode()).isEqualTo("CAR");
     assertThat(m1.getActivities()).isEqualTo(2);
     assertThat(m1.getDistanceKm()).isEqualByComparingTo(new BigDecimal("12.00"));
-    assertThat(m1.getCarbonKg()).isEqualByComparingTo(new BigDecimal("3.50"));
+    assertThat(m1.getCarbonKg()).isEqualByComparingTo(
+        expectedCarbon("commute_work", carDistance1, "car")
+            .add(expectedCarbon("commute_work", carDistance2, "car"))
+            .setScale(2, RoundingMode.HALF_UP)
+    );
 
     assertThat(m2.getMode()).isEqualTo("BIKE");
     assertThat(m2.getActivities()).isEqualTo(1);
     assertThat(m2.getDistanceKm()).isEqualByComparingTo(new BigDecimal("3.00"));
-    assertThat(m2.getCarbonKg()).isEqualByComparingTo(new BigDecimal("0.20"));
+    assertThat(m2.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", bikeDistance, "bike"));
   }
 
   @Test
@@ -200,34 +210,37 @@ class CarbonCalculationServiceTest {
     assertThat(d1.getDate()).isEqualTo(LocalDate.parse("2026-02-26"));
     assertThat(d1.getActivities()).isEqualTo(2);
     assertThat(d1.getDistanceKm()).isEqualByComparingTo(new BigDecimal("9.66"));
-    assertThat(d1.getCarbonKg()).isEqualByComparingTo(new BigDecimal("3.46"));
+    assertThat(d1.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", new BigDecimal("9.66"), "car"));
 
     CarbonDashboardResponse.DailyMetric d2 = res.getDaily().get(1);
     assertThat(d2.getDate()).isEqualTo(LocalDate.parse("2026-02-27"));
     assertThat(d2.getActivities()).isEqualTo(1);
     assertThat(d2.getDistanceKm()).isEqualByComparingTo(new BigDecimal("11.27"));
-    assertThat(d2.getCarbonKg()).isEqualByComparingTo(new BigDecimal("2.45"));
+    assertThat(d2.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", new BigDecimal("11.27"), "car"));
   }
 
   @Test
   void buildDashboard_buildsRecentActivities_withoutTime() throws Exception {
     User user = createUser("carbon-recent-user-" + System.nanoTime());
 
+    BigDecimal a1Distance = new BigDecimal("1.234");
     ActivityResponse a1 = createActivityReturn(user.getId(),
             OffsetDateTime.of(2026, 2, 25, 9, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("1.234"),   // rounds to 1.23
+            a1Distance,
             "car",
-            new BigDecimal("2.3456")); // rounds to 2.35
+            new BigDecimal("2.3456"));
 
+    BigDecimal a2Distance = new BigDecimal("9.666");
     ActivityResponse a2 = createActivityReturn(user.getId(),
             OffsetDateTime.of(2026, 2, 26, 10, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("9.666"),   // rounds to 9.67
+            a2Distance,
             "car",
-            new BigDecimal("1.3600")); // rounds to 1.36
+            new BigDecimal("1.3600"));
 
+    BigDecimal a3Distance = new BigDecimal("11.270");
     ActivityResponse a3 = createActivityReturn(user.getId(),
             OffsetDateTime.of(2026, 2, 27, 8, 0, 0, 0, ZoneOffset.ofHours(-5)),
-            new BigDecimal("11.270"),
+            a3Distance,
             "car",
             new BigDecimal("2.4500"));
 
@@ -242,7 +255,7 @@ class CarbonCalculationServiceTest {
     assertThat(r1.getMode()).isEqualTo("CAR");
     assertThat(r1.getDate()).isEqualTo(LocalDate.parse("2026-02-27"));
     assertThat(r1.getDistanceKm()).isEqualByComparingTo(new BigDecimal("11.27"));
-    assertThat(r1.getCarbonKg()).isEqualByComparingTo(new BigDecimal("2.45"));
+    assertThat(r1.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", a3Distance, "car"));
     assertThat(r1.getStartLocation()).isNull();
     assertThat(r1.getEndLocation()).isNull();
 
@@ -250,13 +263,13 @@ class CarbonCalculationServiceTest {
     assertThat(r2.getActivityId()).isEqualTo("act_" + a2.getId());
     assertThat(r2.getDate()).isEqualTo(LocalDate.parse("2026-02-26"));
     assertThat(r2.getDistanceKm()).isEqualByComparingTo(new BigDecimal("9.67"));
-    assertThat(r2.getCarbonKg()).isEqualByComparingTo(new BigDecimal("1.36"));
+    assertThat(r2.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", a2Distance, "car"));
 
     CarbonDashboardResponse.RecentActivity r3 = recent.get(2);
     assertThat(r3.getActivityId()).isEqualTo("act_" + a1.getId());
     assertThat(r3.getDate()).isEqualTo(LocalDate.parse("2026-02-25"));
     assertThat(r3.getDistanceKm()).isEqualByComparingTo(new BigDecimal("1.23"));
-    assertThat(r3.getCarbonKg()).isEqualByComparingTo(new BigDecimal("2.35"));
+    assertThat(r3.getCarbonKg()).isEqualByComparingTo(expectedCarbon("commute_work", a1Distance, "car"));
   }
 
   @Test
@@ -325,5 +338,58 @@ class CarbonCalculationServiceTest {
     request.setMode(mode);
     request.setCarbonKg(carbonKg);
     return activityService.create(request);
+  }
+
+  private BigDecimal expectedCarbon(String activityType, BigDecimal distanceKm, String mode) {
+    BigDecimal km = distanceKm == null ? BigDecimal.ZERO : distanceKm;
+
+    String type = activityType == null ? "" : activityType.trim().toLowerCase();
+    String m = mode == null ? "" : mode.trim().toLowerCase();
+
+    if (type.startsWith("commute")) {
+      return round(km.multiply(perKm(m)));
+    }
+
+    if (type.equals("gym") || type.equals("leisure")) {
+      return round(km.multiply(perKm(m, new BigDecimal("0.2"))));
+    }
+
+    if (type.equals("dining")) {
+      BigDecimal base = new BigDecimal("1.6");
+      BigDecimal factor = new BigDecimal("0.85");
+      return round(base.multiply(factor));
+    }
+
+    if (type.equals("grocery") || type.equals("shopping")) {
+      return round(new BigDecimal("2.0"));
+    }
+
+    return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
+  }
+
+  private BigDecimal perKm(String mode) {
+    return perKm(mode, new BigDecimal("0.35"));
+  }
+
+  private BigDecimal perKm(String mode, BigDecimal defaultFactor) {
+    switch (mode) {
+      case "walk":
+      case "bike":
+        return BigDecimal.ZERO;
+      case "train":
+        return new BigDecimal("0.09");
+      case "bus":
+        return new BigDecimal("0.12");
+      case "car":
+        return new BigDecimal("0.35");
+      case "rideshare":
+        return new BigDecimal("0.40");
+      default:
+        return defaultFactor;
+    }
+  }
+
+  private BigDecimal round(BigDecimal value) {
+    return value.setScale(2, RoundingMode.HALF_UP);
   }
 }

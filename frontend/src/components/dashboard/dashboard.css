@@ -20,7 +20,7 @@
 
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 25px;
   margin-bottom: 45px;
 }
@@ -28,7 +28,7 @@
 .summary-card {
   background: white;
   border-radius: 16px;
-  padding: 25px;
+  padding: 16px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
   transition: 0.25s ease;
 }
@@ -45,7 +45,7 @@
 }
 
 .card-number {
-  font-size: 30px;
+  font-size: 22px;
   font-weight: 600;
   color: #2d6a4f;
 }
@@ -62,7 +62,7 @@
 .chart-card {
   background: white;
   border-radius: 16px;
-  padding: 25px;
+  padding: 16px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
 }
 
@@ -77,7 +77,7 @@
 .table-card {
   background: white;
   border-radius: 16px;
-  padding: 25px;
+  padding: 16px;
   box-shadow: 0 4px 18px rgba(0,0,0,0.06);
 }
 

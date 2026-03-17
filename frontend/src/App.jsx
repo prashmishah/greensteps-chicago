@@ -11,6 +11,7 @@ import History from "./pages/History.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import Recommendations from "./pages/Recommendations.jsx";
 
 export default function App() {
   return (
@@ -28,9 +29,10 @@ export default function App() {
           <Route path="/add-activity" element={<ActivitySelection />} />
           <Route path="/activity/:type" element={<ActivityForm />} />
           <Route path="/history" element={<History />} />
+          <Route path="/recommendations" element={<Recommendations />} />
         </Route>
 
-        {/* FALLBACK */} 
+        {/* FALLBACK */}
         <Route path="/dashboard" element={<Navigate to="/" replace />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFound />} />

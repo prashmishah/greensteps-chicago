@@ -10,7 +10,7 @@ export default function AppLayout() {
       <header className="topbar">
         <div
           className="brand"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/")}
           role="button"
           tabIndex={0}
         >
