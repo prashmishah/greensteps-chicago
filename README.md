@@ -16,7 +16,7 @@ The dashboard provides an overview of the user's carbon footprint, including tot
 
 Users can select from several common activity types and log their daily activities.
 
-![Add Activity](docs/screenshots/add-activity.png)
+![Add Activity](docs/screenshots/add-activities.png)
 
 ### Activity Tracking
 
