@@ -1,39 +1,87 @@
-# Green Steps
+# 🌱 Green Steps
 
-Green Steps is a carbon-emissions monitoring platform for daily activities.
+Green Steps is a full-stack carbon footprint tracking application that helps users understand the environmental impact of their everyday activities and discover more sustainable alternatives.
 
-[Coding Standards and Merge Conflicts](https://github.com/depaulcdm/course-project-greensteps/wiki)
+Users can log activities such as commuting, dining, shopping, gym visits, and leisure activities. Green Steps calculates estimated CO₂ emissions, tracks activity history, displays carbon-footprint analytics, and provides recommendations for reducing emissions.
 
-**Quick Start**
-1. Backend (Spring Boot + H2 in-memory):
-   ```bash
-   cd backend
-   ./gradlew bootRun
-   ```
-   If `./gradlew` is missing, install Gradle or run:
-   ```bash
-   gradle wrapper
-   ```
-2. Frontend (Vite + React):
-   ```bash
-   cd frontend
-   npm install
-   npm run dev
-   ```
+## 📸 Application Preview
 
-**Run Both at Once**
-From the repo root:
-```bash
-bash scripts/build.sh
-```
+### Carbon Footprint Dashboard
 
-**H2 Console**
-When the backend is running:
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:greensteps`
-- User: `sa`
-- Password: *(blank)*
+The dashboard provides an overview of the user's carbon footprint, including total CO₂ emissions, CO₂ saved, distance traveled, activity statistics, and emissions visualizations.
 
-**Notes**
-- JPA automatically creates the `users` and `activities` tables on startup.
-- Run backend tests with `./gradlew test`.
+![Green Steps Dashboard](docs/screenshots/dashboard.png)
+
+### Add Activities
+
+Users can select from several common activity types and log their daily activities.
+
+![Add Activity](docs/screenshots/add-activity.png)
+
+### Activity Tracking
+
+Green Steps tracks logged activities and displays carbon-emission information through the dashboard.
+
+![Activity Tracking](docs/screenshots/activity-tracking.png)
+
+### Sustainable Recommendations
+
+The application can recommend lower-emission transportation alternatives based on the activity being logged.
+
+![Green Steps Recommendations](docs/screenshots/recommendations.png)
+
+### Activity History
+
+Users can review previously logged activities, view their estimated CO₂ emissions, log activities again, and delete entries.
+
+![Activity History](docs/screenshots/activity-history.png)
+
+## ✨ Key Features
+
+- Carbon footprint calculation for everyday activities
+- Activity-based CO₂ tracking
+- Sustainable transportation recommendations
+- Carbon savings tracking
+- Interactive carbon-footprint dashboard
+- CO₂ trends and transportation analytics
+- Activity history
+- Log-again functionality
+- Delete activity functionality
+- Multiple activity categories
+- Full-stack frontend/backend integration
+
+## 🛠️ Tech Stack
+
+### Frontend
+- React
+- Vite
+- JavaScript
+- HTML/CSS
+
+### Backend
+- Java
+- Spring Boot
+- Spring Data JPA
+- REST APIs
+- Gradle
+
+### Database
+- H2 Database
+
+### Development Tools
+- Git
+- GitHub
+- Visual Studio Code
+
+## 🏗️ Project Structure
+
+```text
+greensteps-chicago/
+├── backend/                 # Spring Boot backend
+├── frontend/                # React + Vite frontend
+├── database/                # Database-related resources
+├── docs/
+│   └── screenshots/         # Application screenshots
+├── scripts/                 # Project scripts
+├── README.md
+└── .gitignore
